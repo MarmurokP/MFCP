@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My first castle panic</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <div id="game-container">
+        <header id="game-header">
+            <div id="castle-health">Wall: <span id="wall-status">Good</span></div>
+            <div id="defenders-info">Defender's left: <span id="defenders-left">26</span></div>
+            <div id="troll-info">Troll's left: <span id="trols-left">13</span></div>
+        </header>
+
+        <main id="game-board">
+            <div id="path"></div>
+            <div id="castle-zone">Castle</div>
+        </main>
+
+        <footer id="game-controls">
+            <div id="player-hand"></div>
+            <button id="end-turn-btn">End turn</button>
+        </footer>
+    </div>
+
+    <script src="js/engine.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/game.js"></script>
+    
+</body>
+</html>

@@ -1,0 +1,48 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    background-color: #caff9e;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+#game-container {
+    width: 100%;
+    max-width: 800px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+}
+
+#game-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+#game-board {
+    border: 3px dashed #ccc;
+    padding: 20px;
+    min-height: 300px;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+#player-hand {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+    min-height: 100px;
+    border: 1px rgba(0, 0, 0, 0.1) solid;
+    padding: 10px;
+}
