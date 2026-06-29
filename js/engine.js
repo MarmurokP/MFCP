@@ -25,9 +25,9 @@ const CARD_TYPES = {
 
 const TROLLS_TYPES = {
     REGULAR: {name: 'Troll', type: 'regular', emoji: '👹'},
-    REGULAR: {name: 'Runner', type: 'runner', emoji: '🏃‍♂️'},
-    REGULAR: {name: 'Heavy', type: 'heavy', emoji: '🦍'},
-    REGULAR: {name: 'Chief', type: 'chief', emoji: '👑'}
+    RUNNER: {name: 'Runner', type: 'runner', emoji: '🏃‍♂️'},
+    HEAVY: {name: 'Heavy', type: 'heavy', emoji: '🦍'},
+    CHIEF: {name: 'Chief', type: 'chief', emoji: '👑'}
 };
 
 const gameState = {
@@ -102,6 +102,63 @@ function createDeck() {
     addCard(CARD_TYPES.REBUILD, 1, 'rebuild');
 
     gameState.deck = shuffle(deck);
+}
+
+function createTrollsInForest() {
+    gameState.path.forEach(tile => tile.troll = null);
+
+    const totalTrolls = [];
+    const starters = [];
+    let idCounter = 0;
+
+    const generateTrolls = (meta, count, imgName, isStarter = false) => {
+        for (let i = 0; i < count; i++) {
+            const trollObj = {
+                id: 'troll_${idCounter++}',
+                name: meta.name,
+                type: meta.type,
+                emoji: meta.emoji,
+                hp: meta.type === 'heavy' ? 2 : 1,
+                position: null,
+                image: 'assets/images/monsters/${imgName}.png'
+            };
+
+            if (isStarter && starters.length < 3) {
+                starters.push(trollObj);
+            } else {
+                totalTrolls.push(trollObj);
+            }
+        }
+    };
+
+    generateTrolls(TROLLS_TYPES.REGULAR, 9, 'troll_regular', true);
+    generateTrolls(TROLLS_TYPES.RUNNER, 3, 'troll_runner');
+    generateTrolls(TROLLS_TYPES.HEAVY, 2, 'troll_heavy');
+    generateTrolls(TROLLS_TYPES.CHIEF, 2, 'troll_chief');
+
+    shuffle(totalTrolls);
+
+    starters[0].position = 0;
+    starters[1].position = 1;
+    starters[2].position = 2;
+
+    gameState.path[0].troll = starters[0];
+    gameState.path[1].troll = starters[1];
+    gameState.path[2].troll = starters[2];
+
+    gameState.activeTrolls = starters;
+    gameState.trollsInForst = totalTrolls;
+}
+
+function initEngine() {
+    createDeck();
+    createTrollsInForest();
+
+    gameState.playerHand = gameState.deck.splice(0, 4);
+
+    console.log("Create date for 9 points - success");
+    console.log("Field:", gameState.path);
+    console.log("Trols in forest left:", gameState.trollsInForst.length);
 }
 
 function checkMatch(card, trollTile) {
